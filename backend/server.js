@@ -4,8 +4,16 @@ const mongoose = require('mongoose');
 
 const app = express();
 
+// MIDDLEWARE
 app.use(express.json());
 app.use(cors());
+
+const userRoute = require('./routes/user');
+const noteRoute = require('./routes/note');
+
+app.use('/api/user', userRoute);
+app.use('/api/note', noteRoute);
+
 
 // CONNECT TO MONGOOSE DATABASE
 const URI = 'mongodb://localhost/notesapp';
