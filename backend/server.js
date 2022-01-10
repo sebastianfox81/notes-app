@@ -1,8 +1,10 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
 const app = express();
+const port = process.env.PORT || 5000
 
 // MIDDLEWARE
 app.use(express.json());
@@ -16,7 +18,8 @@ app.use('/api/note', noteRoute);
 
 
 // CONNECT TO MONGOOSE DATABASE
-const URI = 'mongodb://localhost/notesapp';
+
+const URI = process.env.MONGODB_URI;
 mongoose.connect(URI, {useNewUrlParser: true, useUnifiedTopology: true});
 
 const connection = mongoose.connection;
@@ -25,6 +28,6 @@ connection.once('open', () => {
 });
 
 // CONNECT EXPRESS SERVER
-app.listen(5000, () => {
-  console.log('Listening on port 5000')
+app.listen(port, () => {
+  console.log(`Listening on port ${port}`)
 })
