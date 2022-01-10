@@ -1,7 +1,8 @@
-const route = require('express').Router();
+const router = require('express').Router();
 
-route.get('/', (req, res) => {
-  res.send('testing note route')
-})
+const { getNotes } = require('../controllers/notes.controller')
 
-module.exports = route;
+router.route('/')
+  .get(getNotes)
+
+module.exports = router;

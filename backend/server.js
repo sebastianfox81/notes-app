@@ -13,8 +13,8 @@ app.use(cors());
 const userRoute = require('./routes/user');
 const noteRoute = require('./routes/note');
 
-app.use('/api/user', userRoute);
-app.use('/api/note', noteRoute);
+app.use('/api/users', userRoute);
+app.use('/api/notes', noteRoute);
 
 
 // CONNECT TO MONGOOSE DATABASE
