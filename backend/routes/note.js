@@ -1,8 +1,14 @@
 const router = require('express').Router();
 
-const { getNotes } = require('../controllers/notes.controller')
+const { getAllNotes, createNote, getOneNote, updateNote, deleteNote  } = require('../controllers/notes.controller')
 
 router.route('/')
-  .get(getNotes)
+  .get(getAllNotes)
+  .post(createNote);
+
+router.route('/:id')
+  .get(getOneNote)
+  .put(updateNote)
+  .delete(deleteNote);
 
 module.exports = router;
