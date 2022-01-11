@@ -10,17 +10,42 @@ class CreateUser extends Component {
     const res = await axios.get("http://localhost:5000/api/users");
     this.setState({
       users: res.data,
+      username: "",
     });
+  }
+
+  handleChange = (e) => {
+    this.setState({
+      [e.target.id]: e.target.value
+    })
   }
 
   render() {
     return (
       <div className="row">
-        <div>
-          <ul>
+        <div className="col-md-4">
+          <div className="card card-body">
+            <h3>Create New User</h3>
+            <form>
+              <div className="form-group">
+                <input
+                  id="username"
+                  className="form-control"
+                  type="text"
+                  onChange={this.handleChange}
+                />
+              </div>
+            </form>
+          </div>
+        </div>
+        <div className="col-md-8">
+          <ul className="list-group">
             {this.state.users.map((user) => {
               return (
-                <li key={user._id} className="list-group-item list-group-item-action">
+                <li
+                  key={user._id}
+                  className="list-group-item list-group-item-action"
+                >
                   {user.username}
                 </li>
               );

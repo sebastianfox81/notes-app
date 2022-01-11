@@ -13,12 +13,15 @@ function App() {
   return (
     <Router>
       <Navigation />
-        <Routes>
+      <div className="container p-4">
+      <Routes>
           <Route exact path='/' element={<NotesList />} />
           <Route path='/edit/:id' element={<CreateNote />} />
           <Route path='/create' element={<CreateNote />} />
           <Route path='/user' element={<CreateUser />} />
         </Routes>
+      </div>
+
     </Router>
   );
 }
