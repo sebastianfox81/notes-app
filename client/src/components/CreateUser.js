@@ -4,14 +4,19 @@ import axios from "axios";
 class CreateUser extends Component {
   state = {
     users: [],
+    username: ''
   };
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.getUsers();
+  }
+
+  async getUsers() {
     const res = await axios.get("http://localhost:5000/api/users");
     this.setState({
       users: res.data,
-      username: "",
     });
+    console.log(res.data)
   }
 
   handleChange = (e) => {
@@ -20,21 +25,37 @@ class CreateUser extends Component {
     })
   }
 
+  handleSubmit = async (e) => {
+    e.preventDefault();
+     await axios.post('http://localhost:5000/api/users', {
+       username: this.state.username
+     })
+     this.setState({
+      username: ''
+    })
+     this.getUsers()
+
+  }
+
   render() {
     return (
       <div className="row">
         <div className="col-md-4">
           <div className="card card-body">
             <h3>Create New User</h3>
-            <form>
+            <form onSubmit={this.handleSubmit}>
               <div className="form-group">
                 <input
                   id="username"
                   className="form-control"
+                  value={this.state.username}
                   type="text"
                   onChange={this.handleChange}
                 />
               </div>
+              <button className="btn btn-primary" type="submit">
+                Save User
+              </button>
             </form>
           </div>
         </div>
