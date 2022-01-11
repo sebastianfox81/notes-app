@@ -1,6 +1,11 @@
 const router = require('express').Router();
 
-const { getAllNotes, createNewNote, getOneNote, updateNote, removeNote  } = require('../controllers/notes.controller')
+const { getAllNotes,
+        createNewNote,
+        getOneNote,
+        updateNote,
+        removeNote
+} = require('../controllers/notes.controller')
 
 router.route('/')
   .get(getAllNotes)

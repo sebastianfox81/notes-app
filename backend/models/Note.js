@@ -6,6 +6,7 @@ const noteSchema = new Schema({
   title: { type: String},
   content: { type: String, required: true},
   author: { type: String},
+  date: { type: Date, default: Date.now }
 },
   { timestamps: true
 })
