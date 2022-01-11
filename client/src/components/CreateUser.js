@@ -4,7 +4,7 @@ import axios from "axios";
 class CreateUser extends Component {
   state = {
     users: [],
-    username: ''
+    username: "",
   };
 
   componentDidMount() {
@@ -16,31 +16,35 @@ class CreateUser extends Component {
     this.setState({
       users: res.data,
     });
-    console.log(res.data)
+    console.log(res.data);
   }
 
   handleChange = (e) => {
     this.setState({
-      [e.target.id]: e.target.value
-    })
-  }
+      [e.target.id]: e.target.value,
+    });
+  };
 
   handleSubmit = async (e) => {
     e.preventDefault();
-     await axios.post('http://localhost:5000/api/users', {
-       username: this.state.username
-     })
-     this.setState({
-      username: ''
-    })
-     this.getUsers()
+    await axios.post("http://localhost:5000/api/users", {
+      username: this.state.username,
+    });
+    this.setState({
+      username: "",
+    });
+    this.getUsers();
+  };
 
+  deleteUser = async (id) => {
+    await axios.delete('http://localhost:5000/api/users/' + id)
+    this.getUsers();
   }
 
   render() {
     return (
       <div className="row">
-        <div className="col-md-4">
+        <div className="col-md-4 my-2">
           <div className="card card-body">
             <h3>Create New User</h3>
             <form onSubmit={this.handleSubmit}>
@@ -53,22 +57,25 @@ class CreateUser extends Component {
                   onChange={this.handleChange}
                 />
               </div>
-              <button className="btn btn-primary" type="submit">
+              <button className="btn btn-primary my-2" type="submit">
                 Save User
               </button>
             </form>
           </div>
         </div>
-        <div className="col-md-8">
+        <div className="col-md-4 my-2">
           <ul className="list-group">
             {this.state.users.map((user) => {
               return (
-                <li
-                  key={user._id}
-                  className="list-group-item list-group-item-action"
-                >
-                  {user.username}
-                </li>
+                <div key={user._id}>
+                  <li
+                    // key={user._id}
+                    className="list-group-item list-group-item-action"
+                  >
+                    {user.username}
+                  </li>
+                  <span><button onClick={() => this.deleteUser(user._id)} type="button" className="btn btn-danger btn-small">Delete</button></span>
+                </div>
               );
             })}
           </ul>
