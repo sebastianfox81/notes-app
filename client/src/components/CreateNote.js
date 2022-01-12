@@ -7,6 +7,8 @@ class CreateNote extends Component {
   state = {
     users: [],
     userSelected: "",
+    title: '',
+    content: '',
     date: new Date(),
   };
 
@@ -14,11 +16,11 @@ class CreateNote extends Component {
     const res = await axios.get("http://localhost:5000/api/users");
     this.setState({
       users: res.data.map((user) => user.username),
+      userSelected: res.data[0].username
     });
   }
 
   handleChange = (e) => {
-    console.log(e.target.name, e.target.value);
     this.setState({
       [e.target.name]: e.target.value,
     });
@@ -27,6 +29,18 @@ class CreateNote extends Component {
   handleDateChange = (date) => {
     this.setState({ date: date });
   };
+
+  handleSubmit = async (e) => {
+    e.preventDefault();
+      const newNote = {
+        title: this.state.title,
+        content: this.state.content,
+        date: this.state.date,
+        author: this.state.userSelected
+      }
+      await axios.post('http://localhost:5000/api/notes', newNote);
+
+  }
 
   render() {
     return (
@@ -48,7 +62,7 @@ class CreateNote extends Component {
               })}
             </select>
           </div>
-          <form className="form-group">
+          <form onSubmit={this.handleSubmit} className="form-group">
             <input
               type="text"
               className="form-control my-2"
