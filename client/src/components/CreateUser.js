@@ -67,7 +67,7 @@ class CreateUser extends Component {
           <ul className="list-group">
             {this.state.users.map((user) => {
               return (
-                <div key={user._id}>
+                <div key={user._id} className="card">
                   <li
                     // key={user._id}
                     className="list-group-item list-group-item-action"

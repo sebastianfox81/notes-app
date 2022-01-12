@@ -39,7 +39,7 @@ class CreateNote extends Component {
         author: this.state.userSelected
       }
       await axios.post('http://localhost:5000/api/notes', newNote);
-
+      window.location = '/'
   }
 
   render() {
