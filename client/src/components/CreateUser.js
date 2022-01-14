@@ -69,7 +69,6 @@ class CreateUser extends Component {
               return (
                 <div key={user._id} className="card">
                   <li
-                    // key={user._id}
                     className="list-group-item list-group-item-action"
                   >
                     {user.username}

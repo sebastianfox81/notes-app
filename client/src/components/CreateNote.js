@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useParams } from 'react-router-dom';
 
 class CreateNote extends Component {
   state = {
@@ -14,7 +13,6 @@ class CreateNote extends Component {
   };
 
   async componentDidMount() {
-    console.log(this.props.match.params)
     const res = await axios.get("http://localhost:5000/api/users");
     this.setState({
       users: res.data.map((user) => user.username),
@@ -34,11 +32,12 @@ class CreateNote extends Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
+    const { title, content, date, author } = this.state;
       const newNote = {
-        title: this.state.title,
-        content: this.state.content,
-        date: this.state.date,
-        author: this.state.userSelected
+        title,
+        content,
+        date,
+        author
       }
       await axios.post('http://localhost:5000/api/notes', newNote);
       window.location = '/'
